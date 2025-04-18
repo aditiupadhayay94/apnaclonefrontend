@@ -1,25 +1,24 @@
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   return (
     <nav className="flex justify-between items-center p-4 bg-blue-600 text-white">
       <Link to="/" className="text-2xl font-bold">Apna</Link>
       <div className="space-x-4">
-        {!user && (
+        {!currentUser ? (
           <>
-            <Link to="/login" className="hover:underline">Login</Link>
-            <Link to="/register" className="hover:underline">Register</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/Signup">Signup</Link>
           </>
-        )}
-        {user && (
+        ) : (
           <>
-            <Link to="/dashboard" className="hover:underline">Dashboard</Link>
-            <Link to="/jobs" className="hover:underline">Jobs</Link>
-            <Link to="/applications" className="hover:underline">Applications</Link>
-            <button onClick={logout} className="hover:underline">Logout</button>
+            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/jobs">Jobs</Link>
+            <Link to="/applications">Applications</Link>
+            <button onClick={logout}>Logout</button>
           </>
         )}
       </div>

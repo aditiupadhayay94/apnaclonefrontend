@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import axios from '../axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -6,7 +6,13 @@ import { useAuth } from '../context/AuthContext';
 export default function Signup() {
   const [form, setForm] = useState({ name: '', email: '', password: '', role: 'jobseeker' });
   const navigate = useNavigate();
-  const { fetchUser } = useAuth();
+  const { fetchUser,register,currentUser } = useAuth();
+
+useEffect(()=>{
+  if(currentUser){
+    navigate("/dashboard")
+  }
+},[currentUser,navigate])
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,8 +20,8 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('/auth/register', form);
-    await fetchUser();
+    await register(form)
+    // await fetchUser();
     navigate('/dashboard');
   };
 

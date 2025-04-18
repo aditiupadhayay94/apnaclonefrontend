@@ -1,19 +1,19 @@
 
-import { Outlet, ScrollRestoration } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";  // Correct path
+import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import {AuthProvider} from "./context/AuthContext"
 
 function App() {
   return (
     <>
+    <AuthProvider> 
       <Navbar />
-
-      <ScrollRestoration />
       <main>
         <Outlet />
       </main>
       <Footer />
+      </AuthProvider>
     </>
 
   );
